@@ -1,10 +1,10 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-import { InlineLoading } from 'carbon-components-react';
-import { useAppointments } from './appointments.resource';
-import styles from './appointment-details.component.scss';
+import { useTranslation } from 'react-i18next';
+import { InlineLoading } from '@carbon/react';
 import { formatDatetime, parseDate } from '@openmrs/esm-framework';
+import { useAppointments } from './appointments.resource';
+import styles from './appointment-details.scss';
 
 interface AppointmentDetailsProps {
   patientUuid: string;
@@ -26,13 +26,13 @@ const PastAppointmentDetails: React.FC<PastAppointmentDetailsProps> = ({ pastApp
       {pastAppointments.length >= 1 ? (
         pastAppointments.map((appointment, index) => {
           return (
-            <>
+            <div key={`past-appointment-${index}`}>
               <p className={styles.title}>{t('lastEncounter', 'Last encounter')}</p>
               <p className={styles.subtitle}>
                 {formatDatetime(parseDate(appointment.startDateTime))} · {appointment.service.name} ·{' '}
                 {appointment.location.name}{' '}
               </p>
-            </>
+            </div>
           );
         })
       ) : (
@@ -52,13 +52,13 @@ const UpcomingAppointmentDetails: React.FC<UpcomingAppointmentDetailsProps> = ({
       {upcomingAppointments.length >= 1 ? (
         upcomingAppointments.map((appointment, index) => {
           return (
-            <>
+            <div key={`upcoming-appointment-${index}`}>
               <p className={styles.title}>{t('returnDate', 'Return date')}</p>
               <p className={styles.subtitle}>
                 {formatDatetime(parseDate(appointment.startDateTime))} · {appointment.service.name} ·{' '}
                 {appointment.location.name}{' '}
               </p>
-            </>
+            </div>
           );
         })
       ) : (

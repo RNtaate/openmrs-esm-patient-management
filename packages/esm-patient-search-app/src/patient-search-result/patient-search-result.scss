@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
+=======
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+>>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
 @import '~@openmrs/esm-styleguide/src/vars';
 
 .patientChart {
@@ -15,7 +20,7 @@
 }
 
 :global(.omrs-breakpoint-gt-tablet) .container {
-  padding: 1rem 1rem;
+  padding: 1rem;
 }
 
 .patientBanner {
@@ -23,8 +28,12 @@
 }
 
 .patientName {
+<<<<<<< HEAD
   @include type.type-style('productive-heading-03');
   color: $text-02;
+=======
+  @include type.type-style('heading-03');
+>>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
 }
 
 .patientAvatar {
@@ -43,13 +52,21 @@
 }
 
 .demographics {
+<<<<<<< HEAD
   @include type.type-style('body-short-02');
+=======
+  @include type.type-style('body-compact-02');
+>>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
   color: $text-02;
   margin: 0.3rem 0;
 }
 
 .identifiers {
+<<<<<<< HEAD
   @include type.type-style('body-short-02');
+=======
+  @include type.type-style('body-compact-02');
+>>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
   color: $ui-04;
 }
 

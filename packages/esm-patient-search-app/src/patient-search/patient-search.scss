@@ -39,8 +39,7 @@
 }
 
 .searchTerm {
-  @include type.type-style('productive-heading-03');
-  color: $text-01;
+  @include type.type-style('heading-03');
   margin-top: 0.375rem;
 }
 
@@ -61,14 +60,14 @@
 }
 
 .emptyResultText {
-  @include type.type-style('productive-heading-01');
+  @include type.type-style('heading-compact-01');
   color: $text-02;
   margin-top: spacing.$spacing-05;
   margin-bottom: 0.313rem;
 }
 
 .actionText {
-  @include type.type-style('body-long-01');
+  @include type.type-style('body-01');
   color: $text-02;
 }
 
@@ -90,14 +89,13 @@
 }
 
 .errorMessage {
-  @include type.type-style('productive-heading-02');
-  color: $text-01;
+  @include type.type-style('heading-compact-02');
   margin-top: 2.25rem;
   margin-bottom: spacing.$spacing-03;
 }
 
 .errorCopy {
   margin-bottom: spacing.$spacing-03;
-  @include type.type-style('body-long-01');
+  @include type.type-style('body-01');
   color: $text-02;
 }

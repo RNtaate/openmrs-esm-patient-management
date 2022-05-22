@@ -1,3 +1,5 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
 @import '../style.scss';
 
 .errorIcon {
@@ -11,5 +13,5 @@
 .cellContainer {
   display: flex;
   align-items: center;
-  gap: $spacing-02;
+  gap: spacing.$spacing-02;
 }

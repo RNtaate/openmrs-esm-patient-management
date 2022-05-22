@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Grid, Row } from 'carbon-components-react';
+import { Grid, Row } from '@carbon/react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import { Resources, ResourcesContext } from './offline.resources';
 import { SavePatientForm } from './patient-registration/form-manager';

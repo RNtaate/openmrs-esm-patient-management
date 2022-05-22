@@ -2,7 +2,10 @@ import React, { useMemo } from 'react';
 import {
   Button,
   DataTable,
+  DataTableCustomRenderProps,
   DataTableSkeleton,
+  DenormalizedRow,
+  FilterRowsData,
   Search,
   SearchSkeleton,
   SkeletonText,
@@ -13,12 +16,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  FilterRowsData,
   TableSelectAll,
   TableSelectRow,
-  DataTableCustomRenderProps,
-  DenormalizedRow,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import {
   useStore,
   getOfflinePatientDataStore,
@@ -36,7 +36,7 @@ import capitalize from 'lodash-es/capitalize';
 import LastUpdatedTableCell from './last-updated-table-cell.component';
 import styles from './offline-patient-table.scss';
 import PatientNameTableCell from './patient-name-table-cell.component';
-import Renew32 from '@carbon/icons-react/es/renew/32';
+import { Renew } from '@carbon/react/icons';
 import { removePatientFromLocalPatientList, offlinePatientListId } from '../api/api-local';
 import { useAllPatientsFromOfflinePatientList } from '../api/hooks';
 import useSWR from 'swr';
@@ -201,7 +201,7 @@ const OfflinePatientTable: React.FC<OfflinePatientTableProps> = ({ isInteractive
                     className={styles.tableSecondaryAction}
                     kind="ghost"
                     size={toolbarItemSize}
-                    renderIcon={Renew32}
+                    renderIcon={(props) => <Renew {...props} />}
                     onClick={() => handleUpdateSelectedPatientsClick(selectedRows)}>
                     {selectedRows.length === 1
                       ? t('offlinePatientsTableUpdatePatient', 'Update patient')

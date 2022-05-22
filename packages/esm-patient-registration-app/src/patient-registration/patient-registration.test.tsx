@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import * as backendController from './patient-registration.resource';
 import * as mockOpenmrsFramework from '@openmrs/esm-framework/mock';
 import { PatientRegistration } from './patient-registration.component';
-import { mockPatient } from '../../__mocks__/patient.mock';
+import { mockPatient } from '../../../../__mocks__/patient.mock';
 import { match } from 'react-router-dom';
 import FormManager from './form-manager';
 import { Resources, ResourcesContext } from '../offline.resources';

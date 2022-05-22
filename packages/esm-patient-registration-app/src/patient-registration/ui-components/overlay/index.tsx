@@ -1,6 +1,6 @@
 import React from 'react';
-import { ArrowLeft16, Close16 } from '@carbon/icons-react';
 import { Button, Header } from '@carbon/react';
+import { ArrowLeft, Close } from '@carbon/react/icons';
 import styles from './overlay.scss';
 import { useLayoutType, isDesktop } from '@openmrs/esm-framework';
 
@@ -20,13 +20,13 @@ const Overlay: React.FC<OverlayProps> = ({ close, children, header, buttonsGroup
         <div className={styles.desktopHeader}>
           <div className={styles.headerContent}>{header}</div>
           <Button className={styles.closeButton} onClick={close} kind="ghost" hasIconOnly>
-            <Close16 />
+            <Close size={16} />
           </Button>
         </div>
       ) : (
         <Header className={styles.tabletOverlayHeader}>
           <Button onClick={close} hasIconOnly>
-            <ArrowLeft16 onClick={close} />
+            <ArrowLeft size={16} onClick={close} />
           </Button>
           <div className={styles.headerContent}>{header}</div>
         </Header>

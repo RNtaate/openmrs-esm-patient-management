@@ -3,6 +3,7 @@ import {
   DataTable,
   DataTableSkeleton,
   InlineLoading,
+  Layer,
   Pagination,
   Search,
   Table,
@@ -17,7 +18,7 @@ import {
   TableExpandRow,
   TableExpandHeader,
   Tile,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import {
   useLayoutType,
   useConfig,
@@ -154,11 +155,7 @@ const ActiveVisitsTable = () => {
             <span>{isValidating ? <InlineLoading /> : null}</span>
           </div>
         </div>
-        <DataTable
-          rows={paginatedActiveVisits}
-          headers={headerData}
-          size={desktopView ? 'compact' : 'normal'}
-          useZebraStyles>
+        <DataTable rows={paginatedActiveVisits} headers={headerData} size={desktopView ? 'xs' : 'md'} useZebraStyles>
           {({ rows, headers, getHeaderProps, getTableProps, getBatchActionProps, getRowProps }) => (
             <TableContainer className={styles.tableContainer}>
               <TableToolbar>
@@ -250,15 +247,17 @@ const ActiveVisitsTable = () => {
   }
   return (
     <div className={styles.activeVisitsContainer}>
-      <Tile light className={styles.tile}>
-        <div className={!desktopView ? styles.tabletHeading : styles.desktopHeading}>
-          <h4>{t('activeVisits', 'Active Visits')}</h4>
-        </div>
-        <EmptyDataIllustration />
-        <p className={styles.content}>
-          {t('noActiveVisitsForLocation', 'There are no active visits to display for this location.')}
-        </p>
-      </Tile>
+      <Layer>
+        <Tile className={styles.tile}>
+          <div className={!desktopView ? styles.tabletHeading : styles.desktopHeading}>
+            <h4>{t('activeVisits', 'Active Visits')}</h4>
+          </div>
+          <EmptyDataIllustration />
+          <p className={styles.content}>
+            {t('noActiveVisitsForLocation', 'There are no active visits to display for this location.')}
+          </p>
+        </Tile>
+      </Layer>
     </div>
   );
 };

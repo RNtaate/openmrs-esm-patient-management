@@ -1,4 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from '@carbon/react';
+import { CheckmarkOutline, PendingFilled, WarningAltFilled } from '@carbon/react/icons';
 import {
   getOfflinePatientDataStore,
   navigate,
@@ -6,12 +9,7 @@ import {
   OfflinePatientDataSyncStore,
   useStore,
 } from '@openmrs/esm-framework';
-import { useTranslation } from 'react-i18next';
-import PendingFilled16 from '@carbon/icons-react/es/pending--filled/16';
-import WarningAltFilled16 from '@carbon/icons-react/es/warning--alt--filled/16';
-import CheckmarkOutline16 from '@carbon/icons-react/es/checkmark--outline/16';
 import styles from './last-updated-table-cell.scss';
-import { Link } from 'carbon-components-react';
 
 export interface LastUpdatedTableCellProps {
   patientUuid: string;
@@ -26,7 +24,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
     if (!syncState) {
       return (
         <>
-          <WarningAltFilled16 className={styles.errorIcon} />
+          <WarningAltFilled size={16} className={styles.errorIcon} />
           {t('offlinePatientsTableLastUpdatedNotYetSynchronized', 'Not synchronized')}
         </>
       );
@@ -35,7 +33,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
     if (hasNewUnknownHandlers(store, syncState)) {
       return (
         <>
-          <WarningAltFilled16 className={styles.errorIcon} />
+          <WarningAltFilled size={16} className={styles.errorIcon} />
           {t('offlinePatientsTableLastUpdatedOutdatedData', 'Outdated data')}
         </>
       );
@@ -44,7 +42,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
     if (syncState.syncingHandlers.length > 0) {
       return (
         <>
-          <PendingFilled16 className={styles.pendingIcon} />
+          <PendingFilled size={16} className={styles.pendingIcon} />
           {t('offlinePatientsTableLastUpdatedDownloading', 'Downloading...')}
         </>
       );
@@ -53,7 +51,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
     if (syncState.failedHandlers.length > 0) {
       return (
         <>
-          <WarningAltFilled16 className={styles.errorIcon} />
+          <WarningAltFilled size={16} className={styles.errorIcon} />
           <Link
             onClick={() =>
               navigate({ to: `${window.getOpenmrsSpaBase()}offline-tools/patients/${patientUuid}/offline-data` })
@@ -69,7 +67,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
 
     return (
       <>
-        <CheckmarkOutline16 />
+        <CheckmarkOutline size={16} />
         {syncState.timestamp.toLocaleDateString()}
       </>
     );

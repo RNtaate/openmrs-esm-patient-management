@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { IdentifierInput } from '../../input/custom-input/identifier/identifier-input.component';
-import styles from '../field.scss';
 import { useTranslation } from 'react-i18next';
 import { PatientRegistrationContext } from '../../patient-registration-context';
-import { Button } from 'carbon-components-react';
-import { ArrowRight16 } from '@carbon/icons-react';
+import { Button } from '@carbon/react';
+import { ArrowRight } from '@carbon/react/icons';
 import { useLayoutType, useConfig } from '@openmrs/esm-framework';
 import { PatientIdentifierValue } from '../../patient-registration-types';
 import IdentifierSelectionOverlay from './identifier-selection-overlay';
 import { FieldArray } from 'formik';
 import { ResourcesContext } from '../../../offline.resources';
+import styles from '../field.scss';
 
 export const IdField: React.FC = () => {
   const { identifierTypes } = useContext(ResourcesContext);
@@ -55,7 +55,7 @@ export const IdField: React.FC = () => {
           className={styles.setIDNumberButton}
           onClick={() => setShowIdentifierOverlay(true)}
           size={desktop ? 'sm' : 'md'}>
-          {t('configure', 'Configure')} <ArrowRight16 />
+          {t('configure', 'Configure')} <ArrowRight size={16} />
         </Button>
       </div>
       <div>

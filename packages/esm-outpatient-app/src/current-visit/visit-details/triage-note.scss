@@ -9,18 +9,17 @@
 
 .emptyText {
   padding: $spacing-05;
-  @include carbon--type-style('body-long-02');
-  color: var(--text-01);
+  @include carbon--type-style('body-02');
 }
 
 .unit {
-  @include carbon--type-style('body-short-02');
+  @include carbon--type-style('body-compact-01');
   color: var(--text-01);
   margin-left: $spacing-02;
 }
 
 .vitalValues {
-  @include carbon--type-style('body-short-01');
+  @include carbon--type-style('body-compact-01');
   color: $ui-05;
   margin-left: $spacing-02;
 }

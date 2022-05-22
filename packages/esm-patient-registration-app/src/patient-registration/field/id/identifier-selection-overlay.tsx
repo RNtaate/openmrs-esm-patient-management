@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useEffect, useState, useContext } from 'react';
 import styles from './identifier-selection.scss';
 import { useTranslation } from 'react-i18next';
-import { Button, Checkbox, Search, RadioButtonGroup, RadioButton } from 'carbon-components-react';
+import { Button, Checkbox, Search, RadioButtonGroup, RadioButton } from '@carbon/react';
 import { PatientIdentifierType, PatientIdentifierValue } from '../../patient-registration-types';
 import Overlay from '../../ui-components/overlay';
 import { ResourcesContext } from '../../../offline.resources';

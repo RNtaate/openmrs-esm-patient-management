@@ -1,6 +1,6 @@
+@use '@carbon/styles/scss/colors';
 @use '@carbon/styles/scss/spacing';
 @import '~@openmrs/esm-styleguide/src/vars';
-@import '@carbon/colors';
 
 .patientSearchIconWrapper {
   display: flex;
@@ -19,7 +19,7 @@
   flex-direction: row;
   align-items: center;
   width: 50vw;
-  border: spacing.$spacing-01 solid $orange-40;
+  border: spacing.$spacing-01 solid colors.$orange-40;
   height: calc(spacing.$spacing-08 - 0.25rem);
   margin-right: spacing.$spacing-01;
   width: 50vw;
@@ -32,7 +32,7 @@
   flex-direction: row;
   align-items: center;
   width: 100vw;
-  border: spacing.$spacing-01 solid $orange-40;
+  border: spacing.$spacing-01 solid colors.$orange-40;
   margin-right: spacing.$spacing-01;
   position: fixed;
   top: spacing.$spacing-09;
@@ -53,5 +53,5 @@
 }
 
 .searchButton {
-  background-color: $gray-80;
+  background-color: colors.$gray-80;
 }

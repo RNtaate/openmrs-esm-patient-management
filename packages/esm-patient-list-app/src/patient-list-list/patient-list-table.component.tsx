@@ -14,9 +14,8 @@ import {
   Search,
   SearchProps,
   InlineLoading,
-} from 'carbon-components-react';
-import Star16 from '@carbon/icons-react/es/star/16';
-import StarFilled16 from '@carbon/icons-react/es/star--filled/16';
+} from '@carbon/react';
+import { Star, StarFilled } from '@carbon/react/icons';
 import { useSession, ConfigurableLink, useLayoutType } from '@openmrs/esm-framework';
 import styles from './patient-list-list.scss';
 import debounce from 'lodash-es/debounce';
@@ -74,7 +73,7 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
             id="patient-list-search"
             placeholder={search.placeHolder}
             labelText=""
-            size={isDesktop ? 'sm' : 'xl'}
+            size={isDesktop ? 'md' : 'lg'}
             className={styles.search}
             light
             onChange={(evnt) => handleSearch(evnt.target.value)}
@@ -138,9 +137,9 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
                               style={{ cursor: 'pointer' }}
                               onClick={() => handleToggleStarred(row.id, !cell.value)}>
                               {cell.value ? (
-                                <StarFilled16 className={styles.interactiveText01} />
+                                <StarFilled size={16} className={styles.interactiveText01} />
                               ) : (
-                                <Star16 className={styles.interactiveText01} />
+                                <Star size={16} className={styles.interactiveText01} />
                               )}
                             </TableCell>
                           );

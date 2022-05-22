@@ -30,9 +30,9 @@ const CustomOverflowMenuComponent: React.FC<CustomOverflowMenuComponentProps> = 
   }, [wrapperRef]);
 
   return (
-    <div data-overflow-menu className={`bx--overflow-menu ${styles.overflowMenu}`} ref={wrapperRef}>
+    <div data-overflow-menu className={`cds--overflow-menu ${styles.overflowMenu}`} ref={wrapperRef}>
       <button
-        className={`bx--overflow-menu__trigger ${styles.overflowMenuButton} ${showMenu && 'bx--overflow-menu--open'}`}
+        className={`cds--overflow-menu__trigger ${styles.overflowMenuButton} ${showMenu && 'cds--overflow-menu--open'}`}
         aria-haspopup="true"
         aria-expanded={showMenu}
         id="custom-actions-overflow-menu-trigger"
@@ -44,7 +44,7 @@ const CustomOverflowMenuComponent: React.FC<CustomOverflowMenuComponentProps> = 
         {menuTitle}
       </button>
       <div
-        className="bx--overflow-menu-options bx--overflow-menu--flip"
+        className="cds--overflow-menu-options cds--overflow-menu--flip"
         tabIndex={0}
         data-floating-menu-direction="bottom"
         role="menu"
@@ -53,7 +53,7 @@ const CustomOverflowMenuComponent: React.FC<CustomOverflowMenuComponentProps> = 
         style={{
           display: showMenu ? 'block' : 'none',
         }}>
-        <ul className="bx--overflow-menu-options__content">{children}</ul>
+        <ul className="cds--overflow-menu-options__content">{children}</ul>
         <span />
       </div>
     </div>

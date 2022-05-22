@@ -14,7 +14,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import debounce from 'lodash-es/debounce';
 import styles from './patient-table.scss';
 

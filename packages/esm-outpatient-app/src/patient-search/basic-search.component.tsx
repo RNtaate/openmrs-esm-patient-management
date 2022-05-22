@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import debounce from 'lodash-es/debounce';
-import { Search, Button, Tile, InlineLoading, Loading } from 'carbon-components-react';
-import Search16 from '@carbon/icons-react/es/search/16';
+import { Search, Button, InlineLoading, Layer, Tile } from '@carbon/react';
+import { Search as SearchIcon } from '@carbon/react/icons';
+import EmptyDataIllustration from './empty-data-illustration.component';
 import SearchIllustration from './search-illustration.component';
 import SearchResults from './search-results.component';
 import { findPatients } from './search.resource';
 import { SearchTypes } from '../types';
 import styles from './basic-search.scss';
-import EmptyDataIllustration from './empty-data-illustration.component';
 
 interface BasicSearchProps {
   toggleSearchType: (searchMode: SearchTypes) => void;
@@ -61,7 +61,7 @@ const BasicSearch: React.FC<BasicSearchProps> = ({ toggleSearchType }) => {
           onChange={(event) => handleSearch(event.target.value)}
           onClear={() => setSearchResults([])}
         />
-        <Button onClick={performSearch} iconDescription="Basic search" size="field" kind="secondary">
+        <Button onClick={performSearch} iconDescription="Basic search" size="md" kind="secondary">
           {t('search', 'Search')}
         </Button>
       </div>
@@ -93,22 +93,24 @@ const BasicSearch: React.FC<BasicSearchProps> = ({ toggleSearchType }) => {
       ) : (
         <div>
           <div className={styles.tileContainer}>
-            <Tile className={styles.tile} light>
-              <SearchIllustration />
-              <div className={styles.helperText}>
-                <p className={styles.primaryText}>{t('primaryHelperText', 'Search for a patient')}</p>
-                <p className={styles.secondaryText}>
-                  {t('secondaryHelperText', "Type the patient's name or unique ID number")}
-                </p>
-              </div>
-            </Tile>
+            <Layer>
+              <Tile className={styles.tile}>
+                <SearchIllustration />
+                <div className={styles.helperText}>
+                  <p className={styles.primaryText}>{t('primaryHelperText', 'Search for a patient')}</p>
+                  <p className={styles.secondaryText}>
+                    {t('secondaryHelperText', "Type the patient's name or unique ID number")}
+                  </p>
+                </div>
+              </Tile>
+            </Layer>
           </div>
           <p className={styles.separator}>{t('or', 'or')}</p>
           <div className={styles.buttonContainer}>
             <Button
               kind="ghost"
               iconDescription="Advanced search"
-              renderIcon={Search16}
+              renderIcon={(props) => <SearchIcon size={16} {...props} />}
               onClick={() => toggleSearchType(SearchTypes.ADVANCED)}>
               {t('advancedSearch', 'Advanced search')}
             </Button>

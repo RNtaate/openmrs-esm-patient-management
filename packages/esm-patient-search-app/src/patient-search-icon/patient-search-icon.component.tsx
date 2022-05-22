@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useEffect, useReducer, useMemo } from 'react';
-import Search20 from '@carbon/icons-react/es/search/20';
-import Close20 from '@carbon/icons-react/es/close/20';
 import { Button, HeaderGlobalAction, Search } from '@carbon/react';
+import { Close, Search as SearchIcon } from '@carbon/react/icons';
 import PatientSearch from '../patient-search/patient-search.component';
 import { useTranslation } from 'react-i18next';
 import debounce from 'lodash-es/debounce';
@@ -9,7 +8,7 @@ import { useConfig, useOnClickOutside, useLayoutType, isDesktop } from '@openmrs
 import { performPatientSearch } from '../patient-search/patient-search.resource';
 import isEmpty from 'lodash-es/isEmpty';
 import { SearchedPatient } from '../types';
-import styles from './patient-search-icon.component.scss';
+import styles from './patient-search-icon.scss';
 
 interface PatientSearchLaunchProps {}
 
@@ -136,7 +135,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
         {showSearchInput && (
           <div className={styles.searchArea}>
             <Search
-              size={isDesktop(layout) ? 'sm' : 'xl'}
+              size={isDesktop(layout) ? 'sm' : 'lg'}
               className={styles.patientSearchInput}
               placeholder={t('searchForPatient', 'Search for a patient by name or identifier number')}
               labelText=""
@@ -149,7 +148,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               disabled={status === 'searching'}
               onClick={performSearch}
               className={styles.searchButton}
-              size={isDesktop(layout) ? 'sm' : 'default'}>
+              size={isDesktop(layout) ? 'sm' : 'lg'}>
               {t('search', 'Search')}
             </Button>
           </div>
@@ -162,7 +161,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
             aria-label="Search Patient"
             aria-labelledby="Search Patient"
             name="SearchPatientIcon">
-            {showSearchInput ? <Close20 /> : <Search20 />}
+            {showSearchInput ? <Close size={20} /> : <SearchIcon size={20} />}
           </HeaderGlobalAction>
         </div>
       </div>

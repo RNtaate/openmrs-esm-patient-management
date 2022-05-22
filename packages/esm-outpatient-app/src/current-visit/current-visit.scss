@@ -9,12 +9,11 @@
 }
 
 .bodyLong01 {
-  @include carbon--type-style('body-long-01');
+  @include carbon--type-style('body-01');
 }
 
 .heading {
-  @include carbon--type-style('productive-heading-02');
-  color: $text-01;
+  @include carbon--type-style('heading-compact-02');
 }
 
 .subHeading {

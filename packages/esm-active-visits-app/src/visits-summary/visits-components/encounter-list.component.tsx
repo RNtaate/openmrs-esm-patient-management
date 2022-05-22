@@ -11,7 +11,7 @@ import {
   TableExpandRow,
   TableCell,
   TableExpandedRow,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import EncounterObservations from './encounter-observations.component';
 import styles from '../visit-detail-overview.scss';
 import { Observation } from '../visit.resource';

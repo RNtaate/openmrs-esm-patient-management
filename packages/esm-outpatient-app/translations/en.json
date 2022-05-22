@@ -36,10 +36,9 @@
   "fields": "of the following fields",
   "firstName": "First name",
   "firstNameSort": "First name (a-z)",
-  "futureScheduledVisits": " {count, plural, one{{count} visit} other{{count} visits}} scheduled for dates in the future",
   "heartRate": "Heart rate",
   "height": "Height",
-  "hivCare": "HIV care",
+  "hivCare": "HIV Care",
   "indication": "Indication",
   "large": "Large",
   "lastEncounter": "Last encounter",
@@ -87,7 +86,10 @@
   "priority": "Priority",
   "provider": "Provider",
   "quantity": "Quantity",
+<<<<<<< HEAD
   "recentScheduledVisits": " {count, plural, one{{count} visit} other{{count} visits}} scheduled for +/- 7 days",
+=======
+>>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
   "recommended": "Recommended",
   "refills": "Refills",
   "returnDate": "Return date",

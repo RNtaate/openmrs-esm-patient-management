@@ -14,7 +14,8 @@ import {
   Switch,
   TimePicker,
   TimePickerSelect,
-} from 'carbon-components-react';
+} from '@carbon/react';
+import { ArrowLeft } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import {
   useLocations,
@@ -29,12 +30,12 @@ import {
   showNotification,
   showToast,
 } from '@openmrs/esm-framework';
-import styles from './visit-form.scss';
-import ArrowLeft24 from '@carbon/icons-react/es/arrow--left/24';
 import { SearchTypes } from '../../types/index';
 import BaseVisitType from './base-visit-type.component';
 import { first } from 'rxjs/operators';
 import { convertTime12to24, amPm } from '../../helpers/time-helpers';
+import styles from './visit-form.scss';
+
 interface VisitFormProps {
   toggleSearchType: (searchMode: SearchTypes, patientUuid) => void;
   patientUuid: string;
@@ -135,7 +136,7 @@ const StartVisitForm: React.FC<VisitFormProps> = ({ patientUuid, toggleSearchTyp
           <div className={styles.backButton}>
             <Button
               kind="ghost"
-              renderIcon={ArrowLeft24}
+              renderIcon={(props) => <ArrowLeft size={24} {...props} />}
               iconDescription={t('backToScheduledVisits', 'Back to scheduled visits')}
               size="sm"
               onClick={() => toggleSearchType(SearchTypes.SCHEDULED_VISITS, patientUuid)}>

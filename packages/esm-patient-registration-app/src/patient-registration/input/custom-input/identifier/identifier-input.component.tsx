@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Input } from '../../basic-input/input/input.component';
 import { IdentifierSourceAutoGenerationOption, PatientIdentifierValue } from '../../../patient-registration-types';
 import { PatientRegistrationContext } from '../../../patient-registration-context';
-import { TrashCan16, Edit16 } from '@carbon/icons-react';
-import { Button } from 'carbon-components-react';
+import { TrashCan, Edit } from '@carbon/react/icons';
+import { Button } from '@carbon/react';
 import { ResourcesContext } from '../../../../offline.resources';
 import { showModal, useConfig } from '@openmrs/esm-framework';
 import { shouldBlockPatientIdentifierInOfflineMode } from './utils';
@@ -137,7 +137,7 @@ export const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentif
               iconDescription={t('editIdentifierTooltip', 'Edit')}
               disabled={disabled}
               hasIconOnly>
-              <Edit16 />
+              <Edit size={16} />
             </Button>
           )}
         {!(
@@ -151,7 +151,7 @@ export const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentif
             iconDescription={t('deleteIdentifierTooltip', 'Delete')}
             disabled={disabled}
             hasIconOnly>
-            <TrashCan16 />
+            <TrashCan size={16} />
           </Button>
         )}
       </div>

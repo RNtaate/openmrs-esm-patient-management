@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toOmrsIsoString, showToast, usePagination, useSession } from '@openmrs/esm-framework';
-import { Button, Checkbox, Pagination, Search, SkeletonText } from 'carbon-components-react';
-import styles from './add-patient.scss';
-import { addPatientToLocalOrRemotePatientList } from '../api/api';
+import { Button, Checkbox, Pagination, Search, SkeletonText } from '@carbon/react';
 import { useAllPatientListsWhichDoNotIncludeGivenPatient } from '../api/hooks';
+import { addPatientToLocalOrRemotePatientList } from '../api/api';
+import styles from './add-patient.scss';
 
 interface AddPatientProps {
   closeModal: () => void;
@@ -130,8 +130,8 @@ const AddPatient: React.FC<AddPatientProps> = ({ closeModal, patientUuid }) => {
         />
       </div>
       <div className={styles.patientListList}>
-        <fieldset className="bx--fieldset">
-          <p className="bx--label">Patient Lists</p>
+        <fieldset className="cds--fieldset">
+          <p className="cds--label">Patient Lists</p>
           {!isValidating && patientListsObj && results ? (
             results.length > 0 ? (
               results.map((patientList, ind) => (

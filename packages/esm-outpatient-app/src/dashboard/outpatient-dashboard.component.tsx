@@ -40,7 +40,7 @@ export const OutpatientDashboard = ({ match }) => {
     <div className={styles.dashboardContainer}>
       {layout === 'desktop' && <ExtensionSlot extensionSlotName="outpatient-sidebar-slot" key={layout} />}
       {currentDashboard && (
-        <div className={`bx--grid ${styles.dashboardContent}`}>
+        <div className={`cds--grid ${styles.dashboardContent}`}>
           <PatientQueueHeader title={currentDashboard.title} />
           <DashboardView
             dashboardSlot={currentDashboard.slot}

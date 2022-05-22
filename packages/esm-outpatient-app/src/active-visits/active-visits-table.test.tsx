@@ -59,11 +59,10 @@ describe('ActiveVisitsTable: ', () => {
     expect(screen.getByText(/active visits/i)).toBeInTheDocument();
     expect(screen.queryByText(/no patients to display/i)).not.toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
-
     expect(screen.getByRole('link', { name: /eric test ric/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /john smith/i })).toBeInTheDocument();
-    expect(screen.getByRole('tooltip', { name: /needs triage/i })).toBeInTheDocument();
-    expect(screen.getByRole('tooltip', { name: /needs immediate assistance/i })).toBeInTheDocument();
+    expect(screen.getByText(/needs triage/i)).toBeInTheDocument();
+    expect(screen.getByText(/needs immediate assistance/i)).toBeInTheDocument();
 
     const expectedColumnHeaders = [/name/, /priority/, /status/, /wait time \(mins\)/];
     expectedColumnHeaders.forEach((header) => {

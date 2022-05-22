@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tab, Tabs } from 'carbon-components-react';
+import { Tab, Tabs, TabList, TabPanel, TabPanels } from '@carbon/react';
 import { formatTime, parseDate, useLayoutType, formatDatetime } from '@openmrs/esm-framework';
 import { Observation } from '../past-visit.resource';
 import EncounterList from './encounter-list.component';
@@ -73,35 +73,37 @@ const PastVisitSummary: React.FC<PastVisitSummaryProps> = ({ encounters, patient
     <div className={styles.wrapper}>
       <div className={styles.visitContainer}>
         <Tabs className={`${styles.verticalTabs} ${isTablet ? styles.tabletTabs : styles.desktopTabs}`}>
-          <Tab
-            className={`${styles.tab} ${styles.bodyLong01} ${selectedTabIndex === 0 && styles.selectedTab}`}
-            id="vitals-tab"
-            onClick={() => setSelectedTabIndex(0)}
-            label={t('vitals', 'Vitals')}></Tab>
-
-          <Tab
-            className={`${styles.tab} ${selectedTabIndex === 1 && styles.selectedTab}`}
-            id="notes-tab"
-            onClick={() => setSelectedTabIndex(1)}
-            label={t('notes', 'Notes')}>
-            <Notes notes={notes} diagnoses={diagnoses} />
-          </Tab>
-
-          <Tab
-            className={`${styles.tab} ${selectedTabIndex === 2 && styles.selectedTab}`}
-            id="medications-tab"
-            onClick={() => setSelectedTabIndex(2)}
-            label={t('medications', 'Medications')}>
-            <Medications medications={medications} />
-          </Tab>
-
-          <Tab
-            className={`${styles.tab} ${selectedTabIndex === 3 && styles.selectedTab}`}
-            id="encounters-tab"
-            onClick={() => setSelectedTabIndex(3)}
-            label={t('encounters', 'Encounters')}>
-            <EncounterList encounters={encountersToDisplay} />
-          </Tab>
+          <TabList aria-label="Past visits tabs">
+            <Tab
+              className={`${styles.tab} ${styles.bodyLong01} ${selectedTabIndex === 0 && styles.selectedTab}`}
+              id="vitals-tab"
+              onClick={() => setSelectedTabIndex(0)}>
+              {t('vitals', 'Vitals')}
+            </Tab>
+            <Tab
+              className={`${styles.tab} ${selectedTabIndex === 1 && styles.selectedTab}`}
+              id="notes-tab"
+              onClick={() => setSelectedTabIndex(1)}>
+              {t('notes', 'Notes')}
+            </Tab>
+            <Tab
+              className={`${styles.tab} ${selectedTabIndex === 2 && styles.selectedTab}`}
+              id="medications-tab"
+              onClick={() => setSelectedTabIndex(2)}>
+              {t('medications', 'Medications')}
+            </Tab>
+            <Tab
+              className={`${styles.tab} ${selectedTabIndex === 3 && styles.selectedTab}`}
+              id="encounters-tab"
+              onClick={() => setSelectedTabIndex(3)}>
+              {t('encounters', 'Encounters')}
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <EncounterList encounters={encounters} />
+            </TabPanel>
+          </TabPanels>
         </Tabs>
       </div>
     </div>

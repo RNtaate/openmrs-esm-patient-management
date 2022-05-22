@@ -34,8 +34,7 @@
   margin-top: $spacing-03;
   min-height: $spacing-10;
   width: 100%;
-  @include carbon--type-style('body-short-01');
-  color: $text-01;
+  @include carbon--type-style('body-compact-01');
 }
 
 .radioButton {
@@ -44,7 +43,7 @@
 }
 
 .content {
-  @include carbon--type-style('productive-heading-01');
+  @include carbon--type-style('heading-compact-01');
   color: $text-02;
   margin-top: $spacing-05;
   margin-bottom: $spacing-03;
@@ -52,14 +51,14 @@
 
 .desktopHeading {
   h4 {
-    @include carbon--type-style('productive-heading-02');
+    @include carbon--type-style('heading-compact-02');
     color: $text-02;
   }
 }
 
 .tabletHeading {
   h4 {
-    @include carbon--type-style('productive-heading-03');
+    @include carbon--type-style('heading-compact-03');
     color: $text-02;
   }
 }

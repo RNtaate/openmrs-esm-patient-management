@@ -1,7 +1,8 @@
-@import "../style.scss";
+@use '@carbon/styles/scss/spacing';
+@import '../style.scss';
 
 .cellContainer {
   display: flex;
   align-items: center;
-  column-gap: $spacing-03;
+  column-gap: spacing.$spacing-03;
 }

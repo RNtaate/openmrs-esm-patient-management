@@ -1,9 +1,9 @@
 import React from 'react';
 import VisitHeader from './visit-header.component';
-import { render, screen } from '@testing-library/react';
-import { mockPatient, mockPatientWithLongName } from '../../__mocks__/patient.mock';
-import { useAssignedExtensions, useLayoutType, useOnClickOutside, usePatient, useVisit } from '@openmrs/esm-framework';
 import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { mockPatient, mockPatientWithLongName } from '../../../../__mocks__/patient.mock';
+import { useAssignedExtensions, useLayoutType, useOnClickOutside, usePatient, useVisit } from '@openmrs/esm-framework';
 import { registerWorkspace, launchPatientWorkspace } from './workspaces';
 
 const mockUseAssignedExtensions = useAssignedExtensions as jest.Mock;
