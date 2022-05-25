@@ -5,7 +5,7 @@ import { Button, HeaderGlobalAction, Search } from 'carbon-components-react';
 import PatientSearch from '../patient-search/patient-search.component';
 import { useTranslation } from 'react-i18next';
 import debounce from 'lodash-es/debounce';
-import { useConfig, useOnClickOutside, useLayoutType } from '@openmrs/esm-framework';
+import { useConfig, useOnClickOutside, useLayoutType, isDesktop } from '@openmrs/esm-framework';
 import { performPatientSearch } from '../patient-search/patient-search.resource';
 import isEmpty from 'lodash-es/isEmpty';
 import { SearchedPatient } from '../types';
@@ -136,7 +136,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
         {showSearchInput && (
           <div className={styles.searchArea}>
             <Search
-              size={layout === 'desktop' ? 'sm' : 'xl'}
+              size={isDesktop(layout) ? 'sm' : 'xl'}
               className={styles.patientSearchInput}
               placeholder={t('searchForPatient', 'Search for a patient by name or identifier number')}
               labelText=""
@@ -149,7 +149,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               disabled={status === 'searching'}
               onClick={performSearch}
               className={styles.searchButton}
-              size={layout === 'desktop' ? 'small' : 'default'}>
+              size={isDesktop(layout) ? 'small' : 'default'}>
               {t('search', 'Search')}
             </Button>
           </div>
