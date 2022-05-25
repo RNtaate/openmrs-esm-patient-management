@@ -46,6 +46,7 @@ export async function syncPatientRegistration(
   queuedPatient: PatientRegistration,
   options: SyncProcessOptions<PatientRegistration>,
 ) {
+  // TODO: fix the arguments
   await FormManager.savePatientFormOnline(
     queuedPatient._patientRegistrationData.isNewPatient,
     queuedPatient._patientRegistrationData.formValues,

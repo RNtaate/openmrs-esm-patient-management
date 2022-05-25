@@ -1,4 +1,4 @@
-import { queueSynchronizationItem } from '@openmrs/esm-framework';
+import { FetchResponse, queueSynchronizationItem, Session } from '@openmrs/esm-framework';
 import { patientRegistration } from '../constants';
 import {
   FormValues,
@@ -9,6 +9,7 @@ import {
   PatientIdentifier,
   PatientIdentifierValue,
   PatientRegistration,
+  RelationshipValue,
 } from './patient-registration-types';
 import {
   addPatientIdentifier,
@@ -23,6 +24,7 @@ import {
   updatePatientIdentifier,
 } from './patient-registration.resource';
 import isEqual from 'lodash-es/isEqual';
+import { RegistrationConfig } from '../config-schema';
 
 export type SavePatientForm = (
   isNewPatient: boolean,
@@ -76,8 +78,9 @@ export default class FormManager {
     patientUuidMap: PatientUuidMapType,
     initialAddressFieldValues: Record<string, any>,
     capturePhotoProps: CapturePhotoProps,
-    patientPhotoConceptUuid: string,
     currentLocation: string,
+    currentUser: Session,
+    config: RegistrationConfig,
     abortController: AbortController,
   ): Promise<string> {
     const patientIdentifiers: Array<PatientIdentifier> = await FormManager.savePatientIdentifiers(
@@ -106,44 +109,89 @@ export default class FormManager {
     );
 
     if (savePatientResponse.ok) {
-      await Promise.all(
-        values.relationships
-          .filter((m) => m.relationshipType)
-          .filter((relationship) => !!relationship.action)
-          .map(({ relatedPersonUuid, relationshipType, uuid: relationshipUuid, action }) => {
-            const [type, direction] = relationshipType.split('/');
-            const thisPatientUuid = savePatientResponse.data.uuid;
-            const isAToB = direction === 'aIsToB';
-            const relationshipToSave = {
-              personA: isAToB ? relatedPersonUuid : thisPatientUuid,
-              personB: isAToB ? thisPatientUuid : relatedPersonUuid,
-              relationshipType: type,
-            };
+      await this.saveRelationships(values.relationships, savePatientResponse, abortController);
 
-            switch (action) {
-              case 'ADD':
-                return saveRelationship(abortController, relationshipToSave);
-              case 'UPDATE':
-                return updateRelationship(abortController, relationshipUuid, relationshipToSave);
-              case 'DELETE':
-                return deleteRelationship(abortController, relationshipUuid);
-            }
-          }),
+      await this.saveObservations(
+        values.obs,
+        savePatientResponse,
+        currentLocation,
+        currentUser,
+        config,
+        abortController,
       );
 
-      if (patientPhotoConceptUuid && capturePhotoProps?.imageData) {
+      if (config.concepts.patientPhotoUuid && capturePhotoProps?.imageData) {
         await savePatientPhoto(
           savePatientResponse.data.uuid,
           capturePhotoProps.imageData,
           '/ws/rest/v1/obs',
           capturePhotoProps.dateTime || new Date().toISOString(),
-          patientPhotoConceptUuid,
+          config.concepts.patientPhotoUuid,
           abortController,
         );
       }
     }
 
     return savePatientResponse.data.uuid;
+  }
+
+  static async saveRelationships(
+    relationships: Array<RelationshipValue>,
+    savePatientResponse: FetchResponse,
+    abortController: AbortController,
+  ) {
+    return Promise.all(
+      relationships
+        .filter((m) => m.relationshipType)
+        .filter((relationship) => !!relationship.action)
+        .map(({ relatedPersonUuid, relationshipType, uuid: relationshipUuid, action }) => {
+          const [type, direction] = relationshipType.split('/');
+          const thisPatientUuid = savePatientResponse.data.uuid;
+          const isAToB = direction === 'aIsToB';
+          const relationshipToSave = {
+            personA: isAToB ? relatedPersonUuid : thisPatientUuid,
+            personB: isAToB ? thisPatientUuid : relatedPersonUuid,
+            relationshipType: type,
+          };
+
+          switch (action) {
+            case 'ADD':
+              return saveRelationship(abortController, relationshipToSave);
+            case 'UPDATE':
+              return updateRelationship(abortController, relationshipUuid, relationshipToSave);
+            case 'DELETE':
+              return deleteRelationship(abortController, relationshipUuid);
+          }
+        }),
+    );
+  }
+
+  static async saveObservations(
+    obss: Record<string, string>,
+    savePatientResponse: FetchResponse,
+    currentLocation: string,
+    currentUser: Session,
+    config: RegistrationConfig,
+    abortController: AbortController,
+  ) {
+    if (Object.keys(obss).length > 0 && config.registrationObs.encounterTypeUuid) {
+      const encounterToSave = {
+        encounterDatetime: new Date(),
+        patient: savePatientResponse.data.uuid,
+        encounterType: config.registrationObs.encounterTypeUuid,
+        location: currentLocation,
+        encounterProviders: [
+          {
+            provider: currentUser.currentProvider.uuid,
+            encounterRole: config.registrationObs.encounterProviderRoleUuid,
+          },
+        ],
+        form: config.registrationObs.registrationFormUuid,
+        obs: null, // TODO: transform `obss` into here
+      };
+
+      // TODO: fill this in
+    }
   }
 
   static async savePatientIdentifiers(
