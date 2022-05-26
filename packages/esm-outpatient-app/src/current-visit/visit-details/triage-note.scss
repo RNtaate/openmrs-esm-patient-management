@@ -1,27 +1,33 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
 @import '~@openmrs/esm-styleguide/src/vars';
-@import '~carbon-components/src/globals/scss/vars';
-@import '~carbon-components/src/globals/scss/mixins';
 
 .subHeading {
-  @include carbon--type-style('label-01');
+  @include type.type-style('label-01');
   color: var(--text-02);
 }
 
 .emptyText {
-  padding: $spacing-05;
-  @include carbon--type-style('body-02');
+  padding: spacing.$spacing-05;
+  @include type.type-style('body-02');
 }
 
 .unit {
+<<<<<<< HEAD
   @include carbon--type-style('body-compact-01');
   color: var(--text-01);
   margin-left: $spacing-02;
+=======
+  @include type.type-style('body-compact-01');
+  color: var(--text-02);
+  margin-left: spacing.$spacing-02;
+>>>>>>> 3e665e0 (Outpatient)
 }
 
 .vitalValues {
-  @include carbon--type-style('body-compact-01');
+  @include type.type-style('body-compact-01');
   color: $ui-05;
-  margin-left: $spacing-02;
+  margin-left: spacing.$spacing-02;
 }
 
 .grid {
