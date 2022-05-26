@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import sectionStyles from '../section.scss';
 import styles from './relationships.scss';
-import { Button, Select, SelectItem, InlineNotification, NotificationActionButton } from 'carbon-components-react';
+import { Button, Select, SelectItem, InlineNotification, NotificationActionButton } from '@carbon/react';
 import { FieldArray } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Autosuggest } from '../../input/custom-input/autosuggest/autosuggest.component';

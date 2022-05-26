@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect, useReducer, useMemo } from 'react';
 import Search20 from '@carbon/icons-react/es/search/20';
 import Close20 from '@carbon/icons-react/es/close/20';
-import { Button, HeaderGlobalAction, Search } from 'carbon-components-react';
+import { Button, HeaderGlobalAction, Search } from '@carbon/react';
 import PatientSearch from '../patient-search/patient-search.component';
 import { useTranslation } from 'react-i18next';
 import debounce from 'lodash-es/debounce';
@@ -149,7 +149,7 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               disabled={status === 'searching'}
               onClick={performSearch}
               className={styles.searchButton}
-              size={isDesktop(layout) ? 'small' : 'default'}>
+              size={isDesktop(layout) ? 'sm' : 'default'}>
               {t('search', 'Search')}
             </Button>
           </div>

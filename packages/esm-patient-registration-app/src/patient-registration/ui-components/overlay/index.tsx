@@ -1,20 +1,21 @@
 import React from 'react';
 import { ArrowLeft16, Close16 } from '@carbon/icons-react';
-import { Button, Header } from 'carbon-components-react';
+import { Button, Header } from '@carbon/react';
 import styles from './overlay.scss';
-import { useLayoutType } from '@openmrs/esm-framework';
+import { useLayoutType, isDesktop } from '@openmrs/esm-framework';
 
 interface OverlayProps {
   close: () => void;
   header: string;
   buttonsGroup?: React.ReactElement;
+  children?: React.ReactNode;
 }
 
 const Overlay: React.FC<OverlayProps> = ({ close, children, header, buttonsGroup }) => {
-  const isDesktop = useLayoutType() === 'desktop';
+  const layout = useLayoutType();
 
   return (
-    <div className={isDesktop ? styles.desktopOverlay : styles.tabletOverlay}>
+    <div className={isDesktop(layout) ? styles.desktopOverlay : styles.tabletOverlay}>
       {isDesktop ? (
         <div className={styles.desktopHeader}>
           <div className={styles.headerContent}>{header}</div>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import { usePagination } from '@openmrs/esm-framework';
-import { Loading, PaginationNav, Tile } from 'carbon-components-react';
+import { Loading, PaginationNav, Tile } from '@carbon/react';
 import { SearchedPatient } from '../types/index';
 import EmptyDataIllustration from './empty-data-illustration.component';
 import PatientSearchResults from '../patient-search-result/patient-search-result.component';
