@@ -41,8 +41,6 @@
     "@carbon/colors": "^11.2.0",
     "@openmrs/esm-framework": "4.x",
     "react": "^18.1.0",
-    "react-i18next": "11.x",
-    "react-router-dom": "^6.3.0",
-    "rxjs": "6.x"
+    "react-i18next": "11.x"
   }
 }
