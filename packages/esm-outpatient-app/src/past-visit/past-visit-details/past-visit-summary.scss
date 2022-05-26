@@ -1,16 +1,16 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
 @import '~@openmrs/esm-styleguide/src/vars';
-@import '~carbon-components/src/globals/scss/vars';
-@import '~carbon-components/src/globals/scss/mixins';
 
 .medicationContainer {
-  margin-bottom: $spacing-06;
+  margin-bottom: spacing.$spacing-06;
 }
 
 .medicationRecord {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  @include carbon--type-style('body-01');
+  @include type.type-style('body-01');
   color: $text-02;
 }
 
@@ -19,33 +19,33 @@
 }
 
 .bodyLong01 {
-  @include carbon--type-style('body-01');
+  @include type.type-style('body-01');
 }
 
 .bodyShort02 {
-  @include carbon--type-style('body-compact-02');
+  @include type.type-style('body-compact-02');
 }
 
 .dosage {
-  @include carbon--type-style('heading-compact-01');
-  margin-left: $spacing-03;
+  @include type.type-style('heading-compact-01');
+  margin-left: spacing.$spacing-03;
 }
 
 .date {
-  @include carbon--type-style('body-compact-01');
+  @include type.type-style('body-compact-01');
   color: $text-02;
 }
 
 .metadata {
-  @include carbon--type-style('label-01');
+  @include type.type-style('label-01');
   color: $text-02;
-  margin: $spacing-02 0;
+  margin: spacing.$spacing-02 0;
 }
 
 .label01 {
-  @include carbon--type-style('label-01');
+  @include type.type-style('label-01');
   color: $text-02;
-  margin: $spacing-02 0;
+  margin: spacing.$spacing-02 0;
 }
 
 .notesSubHeading {
