@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import { Button } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { useLayoutType, useConfig } from '@openmrs/esm-framework';
+import { useLayoutType, useConfig, isDesktop } from '@openmrs/esm-framework';
 import { PatientIdentifierValue } from '../../patient-registration-types';
 import IdentifierSelectionOverlay from './identifier-selection-overlay';
 import { FieldArray } from 'formik';
@@ -15,7 +15,7 @@ export const IdField: React.FC = () => {
   const { identifierTypes } = useContext(ResourcesContext);
   const { setFieldValue, inEditMode } = useContext(PatientRegistrationContext);
   const { t } = useTranslation();
-  const desktop = useLayoutType() === 'desktop';
+  const layout = useLayoutType();
   const [showIdentifierOverlay, setShowIdentifierOverlay] = useState(false);
   const config = useConfig();
   const { defaultPatientIdentifierTypes } = config;
@@ -54,7 +54,7 @@ export const IdField: React.FC = () => {
           kind="ghost"
           className={styles.setIDNumberButton}
           onClick={() => setShowIdentifierOverlay(true)}
-          size={desktop ? 'sm' : 'md'}>
+          size={isDesktop(layout) ? 'sm' : 'md'}>
           {t('configure', 'Configure')} <ArrowRight size={16} />
         </Button>
       </div>

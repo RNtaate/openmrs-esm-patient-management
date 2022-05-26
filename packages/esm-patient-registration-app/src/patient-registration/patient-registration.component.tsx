@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { Button, Link } from '@carbon/react';
 import { XAxis } from '@carbon/react/icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, FormikHelpers } from 'formik';
 import {
@@ -30,17 +30,16 @@ let exportedInitialFormValuesForTesting = {} as FormValues;
 
 export interface PatientRegistrationProps {
   savePatientForm: SavePatientForm;
-  match: any;
   isOffline: boolean;
 }
 
-export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePatientForm, match, isOffline }) => {
+export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePatientForm, isOffline }) => {
   const { currentSession, addressTemplate, identifierTypes } = useContext(ResourcesContext);
   const { search } = useLocation();
   const config = useConfig() as RegistrationConfig;
   const [target, setTarget] = useState<undefined | string>();
   const [validationSchema, setValidationSchema] = useState(initialSchema);
-  const { patientUuid: uuidOfPatientToEdit } = match.params;
+  const { patientUuid: uuidOfPatientToEdit } = useParams();
   const { isLoading: isLoadingPatientToEdit, patient: patientToEdit } = usePatient(uuidOfPatientToEdit);
   const { t } = useTranslation();
   const [capturePhotoProps, setCapturePhotoProps] = useState<CapturePhotoProps | null>(null);
