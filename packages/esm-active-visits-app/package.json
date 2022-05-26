@@ -34,7 +34,6 @@
     "url": "https://github.com/openmrs/openmrs-esm-patient-management/issues"
   },
   "dependencies": {
-    "@carbon/charts-react": "^0.41.14",
     "@carbon/icons-react": "^10.18.0",
     "carbon-components-react": "^7.25.0",
     "lodash-es": "^4.17.15"
@@ -46,7 +45,6 @@
     "dayjs": "1.x",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-i18next": "11.x",
-    "react-router-dom": "5.x"
+    "react-i18next": "11.x"
   }
 }
