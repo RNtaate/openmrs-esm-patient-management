@@ -16,7 +16,7 @@ import {
   InlineLoading,
 } from '@carbon/react';
 import { Star, StarFilled } from '@carbon/react/icons';
-import { useSession, ConfigurableLink, useLayoutType } from '@openmrs/esm-framework';
+import { useSession, ConfigurableLink, useLayoutType, isDesktop } from '@openmrs/esm-framework';
 import styles from './patient-list-list.scss';
 import debounce from 'lodash-es/debounce';
 import { updateLocalOrRemotePatientList } from '../api/api';
@@ -54,7 +54,7 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
   search,
 }) => {
   const userId = useSession()?.user.uuid;
-  const isDesktop = useLayoutType() === 'desktop';
+  const layout = useLayoutType();
 
   const handleSearch = useMemo(() => debounce((searchTerm) => search.onSearch(searchTerm), 300), []);
   const handleToggleStarred = async (patientListId: string, isStarred: boolean) => {
@@ -73,7 +73,7 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
             id="patient-list-search"
             placeholder={search.placeHolder}
             labelText=""
-            size={isDesktop ? 'md' : 'lg'}
+            size={isDesktop(layout) ? 'md' : 'lg'}
             className={styles.search}
             light
             onChange={(evnt) => handleSearch(evnt.target.value)}
@@ -102,7 +102,7 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
                 <TableRow>
                   {headers.map((header) => (
                     <TableHeader
-                      className={isDesktop ? styles.desktopHeader : styles.tabletHeader}
+                      className={isDesktop(layout) ? styles.desktopHeader : styles.tabletHeader}
                       key={header.key}
                       {...getHeaderProps({ header })}
                       isSortable>
@@ -114,7 +114,7 @@ const PatientListTable: React.FC<PatientListTableProps> = ({
               <TableBody className={styles.tableBody}>
                 {rows.map((row, index) => (
                   <TableRow
-                    className={isDesktop ? styles.desktopRow : styles.tabletRow}
+                    className={isDesktop(layout) ? styles.desktopRow : styles.tabletRow}
                     key={row.id}
                     {...getRowProps({ row })}>
                     {row.cells.map((cell) => {

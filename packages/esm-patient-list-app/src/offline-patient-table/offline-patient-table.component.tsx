@@ -25,6 +25,7 @@ import {
   useSession,
   age,
   useLayoutType,
+  isDesktop,
   syncOfflinePatientData,
   showModal,
   getSynchronizationItems,
@@ -53,7 +54,7 @@ const OfflinePatientTable: React.FC<OfflinePatientTableProps> = ({ isInteractive
   const layout = useLayoutType();
   const offlinePatientsSwr = useAllPatientsFromOfflinePatientList(userId);
   const offlineRegisteredPatientsSwr = useOfflineRegisteredPatients();
-  const toolbarItemSize = layout === 'desktop' ? 'sm' : undefined;
+  const toolbarItemSize = isDesktop(layout) ? 'sm' : undefined;
 
   const headers = useMemo(
     () => [

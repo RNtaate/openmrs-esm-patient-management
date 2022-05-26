@@ -23,11 +23,7 @@ interface PatientListMemberRow {
   uuid: string;
 }
 
-interface PatientListDetailProps {
-  patientListUuid: string;
-}
-
-const PatientListDetailComponent: React.FC<PatientListDetailProps> = () => {
+const PatientListDetailComponent = () => {
   const patientListUuid = getPatientListUuidFromUrl();
   const { t } = useTranslation();
   const [currentPage, setPageCount] = useState(1);
