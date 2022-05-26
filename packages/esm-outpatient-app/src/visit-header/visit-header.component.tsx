@@ -118,13 +118,8 @@ const VisitHeader: React.FC = () => {
               <HeaderGlobalAction
                 className={styles.headerGlobalBarCloseButton}
                 aria-label={t('close', 'Close')}
-<<<<<<< HEAD
-                onClick={onClosePatientChart}>
-                <CloseFilled20 />
-=======
                 onClick={() => setShowVisitHeader((prevState) => !prevState)}>
                 <CloseFilled size={20} />
->>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
               </HeaderGlobalAction>
             </HeaderGlobalBar>
             <VisitHeaderSideMenu isExpanded={isSideMenuExpanded} toggleSideMenu={toggleSideMenu} />

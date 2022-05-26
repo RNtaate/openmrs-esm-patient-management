@@ -86,10 +86,6 @@
   "priority": "Priority",
   "provider": "Provider",
   "quantity": "Quantity",
-<<<<<<< HEAD
-  "recentScheduledVisits": " {count, plural, one{{count} visit} other{{count} visits}} scheduled for +/- 7 days",
-=======
->>>>>>> 768290a ((BREAKING) Upgrade to Carbon v11)
   "recommended": "Recommended",
   "refills": "Refills",
   "returnDate": "Return date",
