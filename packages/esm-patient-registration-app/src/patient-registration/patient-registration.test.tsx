@@ -88,15 +88,15 @@ describe('patient registration', () => {
 });
 
 describe('form submit', () => {
-  const fillRequiredFields = (getByLabelText) => {
+  const fillRequiredFields = async (getByLabelText) => {
     const givenNameInput = getByLabelText('givenNameLabelText') as HTMLInputElement;
     const familyNameInput = getByLabelText('familyNameLabelText') as HTMLInputElement;
     const dateOfBirthInput = getByLabelText('dateOfBirthLabelText') as HTMLInputElement;
     const genderInput = getByLabelText('Male') as HTMLSelectElement;
 
-    userEvent.type(givenNameInput, 'Paul');
-    userEvent.type(familyNameInput, 'Gaihre');
-    userEvent.type(dateOfBirthInput, '1993-08-02');
+    await userEvent.type(givenNameInput, 'Paul');
+    await userEvent.type(familyNameInput, 'Gaihre');
+    await userEvent.type(dateOfBirthInput, '1993-08-02');
     fireEvent.click(genderInput);
   };
 
@@ -107,10 +107,10 @@ describe('form submit', () => {
   it.skip('saves the patient without extra info', async () => {
     spyOn(backendController, 'savePatient').and.returnValue(Promise.resolve({}));
 
-    render(<PatientRegistration isOffline={false} match={sampleMatchProp} savePatientForm={jest.fn()} />);
+    render(<PatientRegistration isOffline={false} savePatientForm={jest.fn()} />);
 
     fillRequiredFields(screen.getByLabelText);
-    userEvent.click(await screen.findByText('Register Patient'));
+    await userEvent.click(await screen.findByText('Register Patient'));
 
     waitFor(() => {
       expect(backendController.savePatient).toHaveBeenCalledWith(
@@ -139,15 +139,15 @@ describe('form submit', () => {
     spyOn(backendController, 'savePatient').and.returnValue(Promise.resolve({}));
     render(
       <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration isOffline={false} match={sampleMatchProp} savePatientForm={jest.fn()} />
+        <PatientRegistration isOffline={false} savePatientForm={jest.fn()} />
       </ResourcesContext.Provider>,
     );
 
     const givenNameInput = (await screen.findByLabelText('First Name')) as HTMLInputElement;
 
-    userEvent.type(givenNameInput, '');
+    await userEvent.type(givenNameInput, '');
 
-    userEvent.click(screen.getByText('Register Patient'));
+    await userEvent.click(screen.getByText('Register Patient'));
 
     expect(backendController.savePatient).not.toHaveBeenCalled();
   });
@@ -163,11 +163,7 @@ describe('form submit', () => {
 
     render(
       <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration
-          isOffline={false}
-          match={sampleMatchProp}
-          savePatientForm={FormManager.savePatientFormOnline}
-        />
+        <PatientRegistration isOffline={false} savePatientForm={FormManager.savePatientFormOnline} />
       </ResourcesContext.Provider>,
     );
 
@@ -184,14 +180,14 @@ describe('form submit', () => {
     expect(dateOfBirthInput.value).toBe('04/04/1972');
 
     // do some edits
-    userEvent.clear(givenNameInput);
-    userEvent.clear(middleNameInput);
-    userEvent.clear(familyNameInput);
-    userEvent.type(givenNameInput, 'Eric');
-    userEvent.type(middleNameInput, 'Johnson');
-    userEvent.type(familyNameInput, 'Smith');
-    userEvent.type(address1, 'Bom Jesus Street');
-    userEvent.click(screen.getByText('Update Patient'));
+    await userEvent.clear(givenNameInput);
+    await userEvent.clear(middleNameInput);
+    await userEvent.clear(familyNameInput);
+    await userEvent.type(givenNameInput, 'Eric');
+    await userEvent.type(middleNameInput, 'Johnson');
+    await userEvent.type(familyNameInput, 'Smith');
+    await userEvent.type(address1, 'Bom Jesus Street');
+    await userEvent.click(screen.getByText('Update Patient'));
 
     expect(backendController.savePatient).toHaveBeenCalledWith(
       expect.anything(),

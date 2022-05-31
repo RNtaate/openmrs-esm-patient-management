@@ -8,7 +8,7 @@ import { renderWithSwr } from '../../../../tools/test-helpers';
 import * as mockPastVisitResource from './past-visit.resource';
 
 describe('PastVisit: ', () => {
-  it('renders an empty state for notes, encounters, medications, and vitals', () => {
+  it('renders an empty state for notes, encounters, medications, and vitals', async () => {
     spyOn(mockPastVisitResource, 'usePastVisits').and.returnValue({ data: mockPastVisit.data.results });
     renderPastVisitTabs();
 
@@ -22,7 +22,7 @@ describe('PastVisit: ', () => {
     expect(screen.getByRole('tab', { name: /medications/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /^encounters$/i })).toBeInTheDocument();
 
-    userEvent.click(vitalsTab);
+    await userEvent.click(vitalsTab);
 
     expect(vitalsTab).toHaveAttribute('aria-selected', 'true');
     expect(encountersTab).toHaveAttribute('aria-selected', 'false');

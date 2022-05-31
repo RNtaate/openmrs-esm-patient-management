@@ -27,5 +27,9 @@
   },
   "setupFilesAfterEnv": [
     "<rootDir>/tools/setupTests.ts"
-  ]
+  ],
+  "testEnvironment": "jsdom",
+  "testEnvironmentOptions": {
+    "url": "http://localhost/"
+  }
 }

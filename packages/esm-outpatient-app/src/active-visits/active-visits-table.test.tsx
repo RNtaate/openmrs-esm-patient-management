@@ -80,28 +80,28 @@ describe('ActiveVisitsTable: ', () => {
 
     // filter table to only show patients waiting for `Triage`
     const serviceFilter = screen.getByRole('button', { name: /show patients waiting for/i });
-    userEvent.click(serviceFilter);
-    userEvent.click(screen.getByRole('option', { name: /Triage/i }));
+    await userEvent.click(serviceFilter);
+    await userEvent.click(screen.getByRole('option', { name: /Triage/i }));
 
     expect(screen.queryByText(/waiting for clinical consultation/i)).not.toBeInTheDocument();
     expect(screen.getByText(/waiting for triage/i)).toBeInTheDocument();
 
     // show patients waiting for all services
-    userEvent.click(serviceFilter);
-    userEvent.click(screen.getByRole('option', { name: /all/i }));
+    await userEvent.click(serviceFilter);
+    await userEvent.click(screen.getByRole('option', { name: /all/i }));
 
     expect(screen.getByText(/waiting for triage/i)).toBeInTheDocument();
     expect(screen.getByText(/waiting for clinical consultation/i)).toBeInTheDocument();
 
     // filter table by typing in the searchbox
     const searchbox = screen.getByRole('searchbox');
-    userEvent.type(searchbox, 'Eric');
+    await userEvent.type(searchbox, 'Eric');
 
     expect(screen.getByText(/eric test ric/i)).toBeInTheDocument();
     expect(screen.queryByText(/john smith/i)).not.toBeInTheDocument();
 
-    userEvent.clear(searchbox);
-    userEvent.type(searchbox, 'gibberish');
+    await userEvent.clear(searchbox);
+    await userEvent.type(searchbox, 'gibberish');
 
     expect(screen.queryByText(/eric test ric/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/john smith/i)).not.toBeInTheDocument();

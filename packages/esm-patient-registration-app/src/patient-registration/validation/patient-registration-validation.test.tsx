@@ -89,7 +89,7 @@ describe('name input', () => {
     const middleNameInput = screen.getByLabelText(/Middle Name/i) as HTMLInputElement;
     const familyNameInput = screen.getByLabelText('Family Name') as HTMLInputElement;
 
-    userEvent.click(givenNameInput);
+    await userEvent.click(givenNameInput);
 
     fireEvent.change(givenNameInput, { target: { value: givenNameValue } });
     fireEvent.blur(givenNameInput);
