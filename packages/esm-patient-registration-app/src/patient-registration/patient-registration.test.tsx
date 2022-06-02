@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import * as backendController from './patient-registration.resource';
-import * as mockOpenmrsFramework from '@openmrs/esm-framework/mock';
+import { useConfig, usePatient } from '@openmrs/esm-framework';
 import { PatientRegistration } from './patient-registration.component';
+import { savePatient } from './patient-registration.resource';
 import { mockPatient } from '../../../../__mocks__/patient.mock';
-import { match } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import FormManager from './form-manager';
 import { Resources, ResourcesContext } from '../offline.resources';
 
@@ -15,6 +15,33 @@ jest.mock('react-router-dom', () => ({
     pathname: 'openmrs/spa/patient-registration',
   }),
 }));
+
+jest.mock('@openmrs/esm-framework', () => {
+  const originalModule = jest.requireActual('@openmrs/esm-framework');
+  return {
+    ...originalModule,
+    useConfig: jest.fn().mockImplementation(() => mockOpenmrsConfig),
+    usePatient: jest.fn().mockImplementation(() => ({
+      isLoading: false,
+      patient: mockPatient,
+      patientUuid: mockPatient.id,
+      error: null,
+    })),
+  };
+});
+
+jest.mock('./patient-registration.resource', () => ({
+  savePatient: jest.fn(),
+  usePatientPhoto: jest.fn().mockImplementation(() => ({
+    data: null,
+    isError: null,
+    isLoading: false,
+  })),
+}));
+
+const mockSavePatient = savePatient as jest.Mock;
+const mockUseConfig = useConfig as jest.Mock;
+const mockUsePatient = usePatient as jest.Mock;
 
 const predefinedAddressTemplate = {
   results: [
@@ -51,37 +78,28 @@ let mockOpenmrsConfig = {
 
 const path = `/patient/:patientUuid/edit`;
 
-const sampleMatchProp: match<{ patientUuid: string }> = {
-  isExact: false,
-  path,
-  url: path.replace(':patientUuid', '1'),
-  params: { patientUuid: '1' },
-};
-
-jest.mock('@openmrs/esm-framework', () => {
-  const originalModule = jest.requireActual('@openmrs/esm-framework');
-  return {
-    ...originalModule,
-    useConfig: jest.fn().mockImplementation(() => mockOpenmrsConfig),
-  };
-});
-
 describe('patient registration', () => {
   it('renders without crashing', () => {
     render(
-      <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration isOffline={false} match={sampleMatchProp} savePatientForm={jest.fn()} />
-      </ResourcesContext.Provider>,
+      <BrowserRouter>
+        <ResourcesContext.Provider value={mockResourcesContextValue}>
+          <PatientRegistration isOffline={false} savePatientForm={jest.fn()} />
+        </ResourcesContext.Provider>
+      </BrowserRouter>,
     );
   });
 
   it('has the expected sections', async () => {
-    spyOn(mockOpenmrsFramework, 'useConfig').and.returnValue(mockOpenmrsConfig);
+    mockUseConfig.mockReturnValue(mockOpenmrsConfig);
+
     render(
-      <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration isOffline={false} match={sampleMatchProp} savePatientForm={jest.fn()} />
-      </ResourcesContext.Provider>,
+      <BrowserRouter>
+        <ResourcesContext.Provider value={mockResourcesContextValue}>
+          <PatientRegistration isOffline={false} savePatientForm={jest.fn()} />
+        </ResourcesContext.Provider>
+      </BrowserRouter>,
     );
+
     await waitFor(() => expect(screen.getByLabelText(/Demographics Section/)).not.toBeNull());
     expect(screen.getByLabelText(/Contact Info Section/)).not.toBeNull();
   });
@@ -101,11 +119,11 @@ describe('form submit', () => {
   };
 
   beforeAll(() => {
-    spyOn(mockOpenmrsFramework, 'useConfig').and.returnValue(mockOpenmrsConfig);
+    mockUseConfig.mockReturnValue(mockOpenmrsConfig);
   });
 
   it.skip('saves the patient without extra info', async () => {
-    spyOn(backendController, 'savePatient').and.returnValue(Promise.resolve({}));
+    mockSavePatient.mockResolvedValueOnce({});
 
     render(<PatientRegistration isOffline={false} savePatientForm={jest.fn()} />);
 
@@ -113,7 +131,7 @@ describe('form submit', () => {
     await userEvent.click(await screen.findByText('Register Patient'));
 
     waitFor(() => {
-      expect(backendController.savePatient).toHaveBeenCalledWith(
+      expect(mockSavePatient).toHaveBeenCalledWith(
         expect.anything(),
         {
           identifiers: [], //TODO when the identifer story is finished: { identifier: '', identifierType: '05a29f94-c0ed-11e2-94be-8c13b969e334', location: '' }
@@ -136,25 +154,24 @@ describe('form submit', () => {
   });
 
   it('should not save the patient if validation fails', async () => {
-    spyOn(backendController, 'savePatient').and.returnValue(Promise.resolve({}));
+    mockSavePatient.mockResolvedValueOnce({});
+
     render(
-      <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration isOffline={false} savePatientForm={jest.fn()} />
-      </ResourcesContext.Provider>,
+      <BrowserRouter>
+        <ResourcesContext.Provider value={mockResourcesContextValue}>
+          <PatientRegistration isOffline={false} savePatientForm={jest.fn()} />
+        </ResourcesContext.Provider>
+      </BrowserRouter>,
     );
-
-    const givenNameInput = (await screen.findByLabelText('First Name')) as HTMLInputElement;
-
-    await userEvent.type(givenNameInput, '');
 
     await userEvent.click(screen.getByText('Register Patient'));
 
-    expect(backendController.savePatient).not.toHaveBeenCalled();
+    expect(mockSavePatient).not.toHaveBeenCalled();
   });
 
   it.skip('edits patient demographics', async () => {
-    spyOn(backendController, 'savePatient').and.returnValue(Promise.resolve({}));
-    spyOn(mockOpenmrsFramework, 'usePatient').and.returnValue({
+    mockSavePatient.mockResolvedValueOnce({});
+    mockUsePatient.mockReturnValueOnce({
       isLoading: false,
       patient: mockPatient,
       patientUuid: mockPatient.id,
@@ -162,9 +179,11 @@ describe('form submit', () => {
     });
 
     render(
-      <ResourcesContext.Provider value={mockResourcesContextValue}>
-        <PatientRegistration isOffline={false} savePatientForm={FormManager.savePatientFormOnline} />
-      </ResourcesContext.Provider>,
+      <BrowserRouter>
+        <ResourcesContext.Provider value={mockResourcesContextValue}>
+          <PatientRegistration isOffline={false} savePatientForm={FormManager.savePatientFormOnline} />
+        </ResourcesContext.Provider>
+      </BrowserRouter>,
     );
 
     const givenNameInput = screen.getByLabelText('Given Name') as HTMLInputElement;
@@ -189,7 +208,7 @@ describe('form submit', () => {
     await userEvent.type(address1, 'Bom Jesus Street');
     await userEvent.click(screen.getByText('Update Patient'));
 
-    expect(backendController.savePatient).toHaveBeenCalledWith(
+    expect(mockSavePatient).toHaveBeenCalledWith(
       expect.anything(),
       {
         uuid: '8673ee4f-e2ab-4077-ba55-4980f408773e',

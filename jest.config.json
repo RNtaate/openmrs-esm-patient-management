@@ -31,5 +31,6 @@
   "testEnvironment": "jsdom",
   "testEnvironmentOptions": {
     "url": "http://localhost/"
-  }
+  },
+  "resolver": "<rootDir>/jest-resolver.js"
 }

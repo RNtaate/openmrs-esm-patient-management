@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PatientSearch from './patient-search.component';
 import userEvent from '@testing-library/user-event';
+import PatientSearch from './patient-search.component';
 
 describe('PatientSearch: ', () => {
   test('renders the patient search component in an overlay', async () => {

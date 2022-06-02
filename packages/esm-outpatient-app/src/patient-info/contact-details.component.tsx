@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid, Row, Column, InlineLoading } from '@carbon/react';
-import styles from './contact-details.scss';
 import { usePatientContactAttributes } from './hooks/usePatientAttributes';
+import styles from './contact-details.scss';
 
 interface ContactDetailsProps {
   patientId: string;

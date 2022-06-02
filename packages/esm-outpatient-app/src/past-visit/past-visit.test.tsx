@@ -5,11 +5,20 @@ import userEvent from '@testing-library/user-event';
 import { mockPatient } from '../../../../__mocks__/patient.mock';
 import { mockPastVisit } from '../../__mocks__/visits.mock';
 import { renderWithSwr } from '../../../../tools/test-helpers';
-import * as mockPastVisitResource from './past-visit.resource';
+import { usePastVisits } from './past-visit.resource';
+
+const mockUsePastVisits = usePastVisits as jest.Mock;
+
+jest.mock('./past-visit.resource', () => ({
+  usePastVisits: jest.fn(),
+}));
 
 describe('PastVisit: ', () => {
-  it('renders an empty state for notes, encounters, medications, and vitals', async () => {
-    spyOn(mockPastVisitResource, 'usePastVisits').and.returnValue({ data: mockPastVisit.data.results });
+  it('renders an empty state when notes, encounters, medications, and vitals data is not available', async () => {
+    mockUsePastVisits.mockReturnValueOnce({
+      data: mockPastVisit.data.results,
+    });
+
     renderPastVisitTabs();
 
     expect(screen.getByText(/vitals/i)).toBeInTheDocument();

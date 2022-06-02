@@ -38,10 +38,10 @@ import {
   MappedQueuePriority,
   getOriginFromPathName,
 } from './active-visits-table.resource';
+import CurrentVisit from '../current-visit/current-visit-summary.component';
 import PatientSearch from '../patient-search/patient-search.component';
 import PastVisit from '../past-visit/past-visit.component';
 import styles from './active-visits-table.scss';
-import CurrentVisit from '../current-visit/current-visit-summary.component';
 
 type FilterProps = {
   rowIds: Array<string>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Header } from '@carbon/react';
 import { ArrowLeft, Close } from '@carbon/react/icons';
-import { useLayoutType, isDesktop } from '@openmrs/esm-framework';
+import { useLayoutType } from '@openmrs/esm-framework';
 import styles from './overlay.scss';
 
 interface OverlayProps {
@@ -12,10 +12,11 @@ interface OverlayProps {
 
 const Overlay: React.FC<OverlayProps> = ({ closePanel, children, header }) => {
   const layout = useLayoutType();
+  const isDesktop = layout === 'desktop';
 
   return (
-    <div className={isDesktop(layout) ? styles.desktopOverlay : styles.tabletOverlay}>
-      {isDesktop(layout) ? (
+    <div className={isDesktop ? styles.desktopOverlay : styles.tabletOverlay}>
+      {isDesktop ? (
         <div className={styles.desktopHeader}>
           <div className={styles.headerContent}>{header}</div>
           <Button
