@@ -11,7 +11,7 @@
     "lodash-es": "lodash"
   },
   "collectCoverageFrom": [
-    "**/src/**/*.tsx",
+    "**/packages/**/*.tsx",
     "!**/node_modules/**",
     "!**/vendor/**",
     "!**/src/**/*.test.*",
