@@ -107,6 +107,7 @@
   "sortBy": "Sort by",
   "sp02": "Sp02",
   "startVisit": "Start a visit",
+  "startVisitError": "Error starting visit",
   "startVisitSuccessfully": "Patient has been added to active visits list",
   "status": "Status",
   "tbCare": "TB Care",
