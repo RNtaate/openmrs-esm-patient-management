@@ -7,6 +7,7 @@ import {
   DataTableSkeleton,
   DefinitionTooltip,
   Dropdown,
+  Layer,
   OverflowMenu,
   OverflowMenuItem,
   Tab,
@@ -81,34 +82,36 @@ function ActionsMenu({ patientUuid }: { patientUuid: string }) {
   }, [patientUuid]);
 
   return (
-    <OverflowMenu ariaLabel="Actions menu" light selectorPrimaryFocus={'#editPatientDetails'} size="sm" flipped>
-      <OverflowMenuItem
-        className={styles.menuItem}
-        id="#editPatientDetails"
-        itemText={t('editPatientDetails', 'Edit patient details')}
-        onClick={() =>
-          navigate({
-            to: `\${openmrsSpaBase}/patient/${patientUuid}/edit`,
-          })
-        }>
-        {t('editPatientDetails', 'Edit patient details')}
-      </OverflowMenuItem>
-      <OverflowMenuItem
-        className={styles.menuItem}
-        id="#setWaitTimeManually"
-        itemText={t('setWaitTimeManually', 'Set wait time manually')}>
-        {t('setWaitTimeManually', 'Set wait time manually')}
-      </OverflowMenuItem>
-      <OverflowMenuItem
-        className={styles.menuItem}
-        id="#endVisit"
-        onClick={launchEndVisitModal}
-        hasDivider
-        isDelete
-        itemText={t('endVisit', 'End visit')}>
-        {t('endVisit', 'End Visit')}
-      </OverflowMenuItem>
-    </OverflowMenu>
+    <Layer>
+      <OverflowMenu ariaLabel="Actions menu" selectorPrimaryFocus={'#editPatientDetails'} size="sm" flipped>
+        <OverflowMenuItem
+          className={styles.menuItem}
+          id="#editPatientDetails"
+          itemText={t('editPatientDetails', 'Edit patient details')}
+          onClick={() =>
+            navigate({
+              to: `\${openmrsSpaBase}/patient/${patientUuid}/edit`,
+            })
+          }>
+          {t('editPatientDetails', 'Edit patient details')}
+        </OverflowMenuItem>
+        <OverflowMenuItem
+          className={styles.menuItem}
+          id="#setWaitTimeManually"
+          itemText={t('setWaitTimeManually', 'Set wait time manually')}>
+          {t('setWaitTimeManually', 'Set wait time manually')}
+        </OverflowMenuItem>
+        <OverflowMenuItem
+          className={styles.menuItem}
+          id="#endVisit"
+          onClick={launchEndVisitModal}
+          hasDivider
+          isDelete
+          itemText={t('endVisit', 'End visit')}>
+          {t('endVisit', 'End Visit')}
+        </OverflowMenuItem>
+      </OverflowMenu>
+    </Layer>
   );
 }
 
@@ -306,14 +309,15 @@ function ActiveVisitsTable() {
                       size="sm"
                     />
                   </div>
-                  <TableToolbarSearch
-                    className={styles.search}
-                    expanded
-                    light
-                    onChange={onInputChange}
-                    placeholder={t('searchThisList', 'Search this list')}
-                    size="sm"
-                  />
+                  <Layer>
+                    <TableToolbarSearch
+                      className={styles.search}
+                      expanded
+                      onChange={onInputChange}
+                      placeholder={t('searchThisList', 'Search this list')}
+                      size="sm"
+                    />
+                  </Layer>
                 </TableToolbarContent>
               </TableToolbar>
               <Table {...getTableProps()} className={styles.activeVisitsTable}>

@@ -52,15 +52,16 @@ const BasicSearch: React.FC<BasicSearchProps> = ({ toggleSearchType }) => {
   return (
     <div className={searchResults?.length ? styles.lightBackground : styles.resultsContainer}>
       <div className={styles.searchboxContainer}>
-        <Search
-          autoFocus
-          light
-          className={styles.searchInput}
-          labelText="Search for a patient"
-          placeholder={t('searchboxPlaceholder', 'Search for a patient name or ID number')}
-          onChange={(event) => handleSearch(event.target.value)}
-          onClear={() => setSearchResults([])}
-        />
+        <Layer>
+          <Search
+            autoFocus
+            className={styles.searchInput}
+            labelText="Search for a patient"
+            placeholder={t('searchboxPlaceholder', 'Search for a patient name or ID number')}
+            onChange={(event) => handleSearch(event.target.value)}
+            onClear={() => setSearchResults([])}
+          />
+        </Layer>
         <Button onClick={performSearch} iconDescription="Basic search" size="md" kind="secondary">
           {t('search', 'Search')}
         </Button>
